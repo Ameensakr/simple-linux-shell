@@ -7,7 +7,16 @@
 #include <stdbool.h>
 
 const int MAX = 100;
+int current_pid = -1;
+static volatile int keepRunning = 1;
 
+void intHandler(int dummy)
+{
+    if(current_pid != -1)
+    {
+        kill(current_pid , SIGKILL);
+    }
+}
 
 bool StringPrefixCompare(char arr[] , char *target , int sz)
 {
@@ -21,11 +30,12 @@ bool StringPrefixCompare(char arr[] , char *target , int sz)
 }
 
 int main() {
-
+    signal(SIGINT , intHandler);
     char command[MAX];
     char *argv[10];
-    while(1)
+    while(keepRunning)
     {
+
         printf("My_Shell> ");
         fgets(command , sizeof(command) , stdin);
         int idx = strcspn(command , "\n");
@@ -68,6 +78,7 @@ int main() {
         if(child_id == 0)
         {
             // child process
+            current_pid = getpid();
             execvp(argv[0] , argv);
             printf("execution failed :<");
         }
@@ -75,6 +86,8 @@ int main() {
         {
             // parent
             wait(NULL);
+            printf("\n");
+
         }
         else
         {
