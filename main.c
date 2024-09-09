@@ -68,7 +68,7 @@ void kill_all()
 void intHandler(int dummy) {
 
     if (current_pid != -1) {
-        kill(current_pid, SIGKILL);
+        kill(-current_pid, SIGKILL);
         current_pid = -1;
     }
 
@@ -145,17 +145,22 @@ int main(int argc, char* argv[]) {
         int child_id = fork();
         if (child_id == 0) {
             // child process
-            put_in_running_background_process(getpid());
-            current_pid = getpid();
+            setpgid(0, 0);
             execvp(tokens[0] , tokens);
+            current_pid = getpid();
             printf("execution failed :<\n");
         } else if (child_id > 0) {
             // parent
             if (!is_background_command_v) {
+                current_pid = child_id;
+                setpgid(child_id, child_id);
                 wait(NULL);
+                current_pid = -1;
             }
-            current_pid = -1;
-            printf("\n");
+            else
+            {
+                put_in_running_background_process(getpid());
+            }
         } else {
             printf("fork failed :<");
         }
