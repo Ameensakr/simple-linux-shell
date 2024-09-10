@@ -3,5 +3,4 @@ project(Shell C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(Shell main.c
-        main2.c)
+add_executable(Shell main.c)

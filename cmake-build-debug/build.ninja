@@ -55,12 +55,6 @@ build CMakeFiles/Shell.dir/main.c.o: C_COMPILER__Shell_unscanned_Debug /home/ami
   OBJECT_DIR = CMakeFiles/Shell.dir
   OBJECT_FILE_DIR = CMakeFiles/Shell.dir
 
-build CMakeFiles/Shell.dir/main2.c.o: C_COMPILER__Shell_unscanned_Debug /home/amigoo/Shell/main2.c || cmake_object_order_depends_target_Shell
-  DEP_FILE = CMakeFiles/Shell.dir/main2.c.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/Shell.dir
-  OBJECT_FILE_DIR = CMakeFiles/Shell.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Shell
@@ -69,7 +63,7 @@ build CMakeFiles/Shell.dir/main2.c.o: C_COMPILER__Shell_unscanned_Debug /home/am
 #############################################
 # Link the executable Shell
 
-build Shell: C_EXECUTABLE_LINKER__Shell_Debug CMakeFiles/Shell.dir/main.c.o CMakeFiles/Shell.dir/main2.c.o
+build Shell: C_EXECUTABLE_LINKER__Shell_Debug CMakeFiles/Shell.dir/main.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Shell.dir
   POST_BUILD = :
